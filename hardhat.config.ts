@@ -7,6 +7,7 @@ import { getReportPathForCommit } from "./scripts/utils";
 import { writeReports } from "./scripts/write_reports";
 
 import type { HardhatUserConfig } from "hardhat/config";
+import { getHardhatConfigNetworks } from "@zetachain/networks";
 
 import "dotenv/config";
 import "@nomiclabs/hardhat-ethers";
@@ -132,6 +133,21 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
+    zeta: {
+      accounts: [""],
+      chainId: 7000,
+      gas: 5000000,
+      gasPrice: 80000000000,
+      url: "https://zetachain-evm.blockpi.network/v1/rpc/public",
+    },
+    zetaTestnet: {
+      accounts: [""],
+      chainId: 7001,
+      gas: 5000000,
+      gasPrice: 80000000000,
+      url: "https://rpc.ankr.com/zetachain_evm_athens_testnet",
+    },
+    ...getHardhatConfigNetworks(),
     hardhat: {
       blockGasLimit: 30_000_000,
       throwOnCallFailures: false,
