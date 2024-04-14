@@ -1,20 +1,20 @@
-const { ethers } = require('hardhat');
-require('dotenv');
+const { ethers } = require("hardhat");
+require("dotenv");
 
 async function main() {
-  const networkUrl = 'https://zetachain-evm.blockpi.network/v1/rpc/public'; // Zeta network URL
+  const networkUrl = process.env.RPC; //"https://testnet-rpc.plumenetwork.xyz/http"; // Zeta network URL
   const privateKey = process.env.PRIVATE_KEY; // Fetch private key from environment variable
   const provider = new ethers.providers.JsonRpcProvider(networkUrl);
   const deployer = new ethers.Wallet(privateKey, provider);
 
   // const [deployer] = await ethers.getSigners();
 
-  console.log('Deploying contracts with the account:', deployer.address);
+  console.log("Deploying contracts with the account:", deployer.address);
 
-  const seaportFactory = await ethers.getContractFactory('Seaport');
+  const seaportFactory = await ethers.getContractFactory("Seaport");
 
   const conduitControllerFactory = await ethers.getContractFactory(
-    'ConduitController',
+    "ConduitController"
   );
 
   const conduitController = await conduitControllerFactory
@@ -22,6 +22,10 @@ async function main() {
     .deploy();
 
   await conduitController.deployed();
+  const overrides = {
+    gasLimit: 8000000, // Set the desired gas limit here
+    gasPrice: 10000000,
+  };
 
   const seaportContract = await seaportFactory
     .connect(deployer)
@@ -29,8 +33,8 @@ async function main() {
 
   await seaportContract.deployed();
 
-  console.log('seaport deployed to ' + seaportContract.address);
-  console.log('conduit controller deployed to ' + conduitController.address);
+  console.log("seaport deployed to " + seaportContract.address);
+  console.log("conduit controller deployed to " + conduitController.address);
 }
 
 main()

@@ -898,6 +898,24 @@ Lint checks utilize prettier, prettier-plugin-solidity, and solhint.
 "prettier-plugin-solidity": "^1.0.0-beta.19",
 ```
 
+## Deployment
+
+```bash
+npx hardhat run ./deployer.js --network plumeTestnet
+```
+
+replace plumeTestnet with required networks and make sure it is defined at the hardhat.config.ts file like below
+
+```javascript
+plumeTestnet: {
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 161221135,
+      gas: 6000000,
+      gasPrice: 80000000000,
+      url: "https://testnet-rpc.plumenetwork.xyz/http",
+    }
+```
+
 ## Audits
 
 OpenSea engaged Trail of Bits to audit the security of Seaport. From April 18th to May 12th 2022, a team of Trail of Bits consultants conducted a security review of Seaport. The audit did not uncover significant flaws that could result in the compromise of a smart contract, loss of funds, or unexpected behavior in the target system. Their [full report is available here](https://github.com/trailofbits/publications/blob/master/reviews/SeaportProtocol.pdf).

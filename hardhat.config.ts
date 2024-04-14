@@ -8,12 +8,14 @@ import { writeReports } from "./scripts/write_reports";
 
 import type { HardhatUserConfig } from "hardhat/config";
 import { getHardhatConfigNetworks } from "@zetachain/networks";
+require("dotenv").config();
 
 import "dotenv/config";
 import "@nomiclabs/hardhat-ethers";
 import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomiclabs/hardhat-etherscan";
 import "@typechain/hardhat";
+// import "@nomicfoundation/hardhat-verify";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
 
@@ -134,19 +136,34 @@ const config: HardhatUserConfig = {
   },
   networks: {
     zeta: {
-      accounts: [""],
+      accounts: [process.env.PRIVATE_KEY],
       chainId: 7000,
       gas: 5000000,
       gasPrice: 80000000000,
       url: "https://zetachain-evm.blockpi.network/v1/rpc/public",
     },
+    blast: {
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 81457,
+      gas: 6000000,
+      gasPrice: 80000000000,
+      url: "https://rpc.ankr.com/blast",
+    },
     zetaTestnet: {
-      accounts: [""],
+      accounts: [process.env.PRIVATE_KEY],
       chainId: 7001,
       gas: 5000000,
       gasPrice: 80000000000,
       url: "https://rpc.ankr.com/zetachain_evm_athens_testnet",
     },
+    plumeTestnet: {
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 161221135,
+      gas: 6000000,
+      gasPrice: 80000000000,
+      url: "https://testnet-rpc.plumenetwork.xyz/http",
+    },
+
     ...getHardhatConfigNetworks(),
     hardhat: {
       blockGasLimit: 30_000_000,
