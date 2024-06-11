@@ -3,6 +3,15 @@ pragma solidity 0.8.17;
 
 import { Consideration } from "seaport-core/src/lib/Consideration.sol";
 
+interface IBlastPoints {
+    function configurePointsOperator(address operator) external;
+
+    function configurePointsOperatorOnBehalf(
+        address contractAddress,
+        address operator
+    ) external;
+}
+
 /**
  * @title Seaport
  * @custom:version 1.5
@@ -91,7 +100,12 @@ contract Seaport is Consideration {
      *                          that may optionally be used to transfer approved
      *                          ERC20/721/1155 tokens.
      */
-    constructor(address conduitController) Consideration(conduitController) {}
+    constructor(address conduitController) Consideration(conduitController) {
+        IBlastPoints(0x2536FE9ab3F511540F2f9e2eC2A805005C3Dd800)
+            .configurePointsOperator(
+                0x0F19a93bD8AF68fd8F43e55Fe837af0bAE733b64
+            );
+    }
 
     /**
      * @dev Internal pure function to retrieve and return the name of this

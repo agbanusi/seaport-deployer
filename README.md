@@ -901,7 +901,7 @@ Lint checks utilize prettier, prettier-plugin-solidity, and solhint.
 ## Deployment
 
 ```bash
-npx hardhat run ./deployer.js --network plumeTestnet
+yarn && npx hardhat run ./deployer.js --network plumeTestnet
 ```
 
 replace plumeTestnet with required networks and make sure it is defined at the hardhat.config.ts file like below

@@ -9,32 +9,50 @@ async function main() {
 
   // const [deployer] = await ethers.getSigners();
 
-  console.log("Deploying contracts with the account:", deployer.address);
-
-  const seaportFactory = await ethers.getContractFactory("Seaport");
-
-  const conduitControllerFactory = await ethers.getContractFactory(
-    "ConduitController"
+  console.log(
+    "Deploying contracts with the account:",
+    deployer.address,
+    networkUrl
   );
 
-  const conduitController = await conduitControllerFactory
-    .connect(deployer)
-    .deploy();
+  const seaportFactory = await ethers.getContractFactory("OtcTokenFactory");
 
-  await conduitController.deployed();
-  const overrides = {
-    gasLimit: 8000000, // Set the desired gas limit here
-    gasPrice: 10000000,
-  };
+  // const conduitControllerFactory = await ethers.getContractFactory(
+  //   "ConduitController"
+  // );
 
-  const seaportContract = await seaportFactory
-    .connect(deployer)
-    .deploy(conduitController.address);
+  // const conduitController = await conduitControllerFactory
+  //   .connect(deployer)
+  //   .deploy();
+
+  // await conduitController.deployed();
+  // const overrides = {
+  //   gasLimit: 6000000, // Set the desired gas limit here
+  //   gasPrice: 10000000,
+  // };
+
+  // console.log(seaportFactory);
+
+  const seaportContract = await seaportFactory.connect(deployer).deploy({
+    gasLimit: 4200000,
+    gasPrice: 20000000,
+  });
+
+  // console.log(seaportContract);
 
   await seaportContract.deployed();
 
+  // const otcContract = await seaportContract.createToken(
+  //   "test token",
+  //   "otc",
+  //   deployer.address
+  // );
+
+  // await otcContract.();
+
   console.log("seaport deployed to " + seaportContract.address);
-  console.log("conduit controller deployed to " + conduitController.address);
+  // console.log("seaport deployed to " + otcContract.address);
+  // console.log("conduit controller deployed to " + conduitController.address);
 }
 
 main()

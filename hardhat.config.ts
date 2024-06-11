@@ -146,8 +146,15 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATE_KEY],
       chainId: 81457,
       gas: 6000000,
+      gasPrice: 1000000000,
+      url: "https://blast-rpc.publicnode.com",
+    },
+    sepolia: {
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 11155111,
+      gas: 6000000,
       gasPrice: 80000000000,
-      url: "https://rpc.ankr.com/blast",
+      url: "https://ethereum-sepolia-rpc.publicnode.com",
     },
     zetaTestnet: {
       accounts: [process.env.PRIVATE_KEY],
