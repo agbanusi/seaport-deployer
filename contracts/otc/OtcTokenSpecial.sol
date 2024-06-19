@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./extensions/ERC20X.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
+import "./extensions/ERC20Permit.sol";
 
-contract OTCToken is ERC20, Pausable, AccessControl, ERC20Permit {
+contract OTCTokenSpecial is ERC20X, Pausable, AccessControl, ERC20XPermit {
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant TRANSFER_ROLE = keccak256("TRANSFER_ROLE");
@@ -19,12 +19,13 @@ contract OTCToken is ERC20, Pausable, AccessControl, ERC20Permit {
 
     event Minted(address indexed to, uint256 amount);
     event Burned(address indexed from, uint256 amount);
+    event TimestampSynced(address indexed caller, uint256 timestamp);
 
     constructor(
         address admin,
         string memory name,
         string memory symbol
-    ) ERC20(name, symbol) ERC20Permit(name) {
+    ) ERC20X(name, symbol) ERC20XPermit(name) {
         _grantRole(DEFAULT_ADMIN_ROLE, admin);
         _grantRole(PAUSER_ROLE, admin);
         _grantRole(MINTER_ROLE, admin);
@@ -78,6 +79,11 @@ contract OTCToken is ERC20, Pausable, AccessControl, ERC20Permit {
     function burn(uint256 amount) public onlyRole(MINTER_ROLE) {
         _burn(_msgSender(), amount);
         emit Burned(_msgSender(), amount);
+    }
+
+    function syncTimestamp(uint256 _timestamp) public onlyRole(MINTER_ROLE) {
+        _syncTimestamp(_timestamp);
+        emit TimestampSynced(msg.sender, _timestamp);
     }
 
     function _transfer(
