@@ -12,10 +12,10 @@ require("dotenv").config();
 
 import "dotenv/config";
 import "@nomiclabs/hardhat-ethers";
-import "@nomicfoundation/hardhat-chai-matchers";
+// import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomiclabs/hardhat-etherscan";
 import "@typechain/hardhat";
-// import "@nomicfoundation/hardhat-verify";
+import "@nomiclabs/hardhat-waffle";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
 
@@ -93,32 +93,32 @@ const config: HardhatUserConfig = {
     ],
     overrides: {
       "contracts/conduit/Conduit.sol": {
-        version: "0.8.14",
+        version: "0.8.17",
         settings: {
           viaIR: true,
           optimizer: {
             enabled: true,
-            runs: 1000000,
+            runs: 4_294_967_295,
           },
         },
       },
       "contracts/conduit/ConduitController.sol": {
-        version: "0.8.14",
+        version: "0.8.17",
         settings: {
           viaIR: true,
           optimizer: {
             enabled: true,
-            runs: 1000000,
+            runs: 4_294_967_295,
           },
         },
       },
       "contracts/helpers/TransferHelper.sol": {
-        version: "0.8.14",
+        version: "0.8.17",
         settings: {
           viaIR: true,
           optimizer: {
             enabled: true,
-            runs: 1000000,
+            runs: 4_294_967_295,
           },
         },
       },
@@ -128,7 +128,7 @@ const config: HardhatUserConfig = {
           viaIR: false,
           optimizer: {
             enabled: true,
-            runs: 1,
+            runs: 4_294_967_295,
           },
         },
       },
@@ -152,9 +152,9 @@ const config: HardhatUserConfig = {
     sepolia: {
       accounts: [process.env.PRIVATE_KEY],
       chainId: 11155111,
-      gas: 6000000,
-      gasPrice: 80000000000,
-      url: "https://ethereum-sepolia-rpc.publicnode.com",
+      gas: 8000000,
+      gasPrice: 8000000000,
+      url: "https://eth-sepolia.public.blastapi.io",
     },
     zetaTestnet: {
       accounts: [process.env.PRIVATE_KEY],

@@ -16,6 +16,8 @@ contract OtcTokenSpecialFactory is Ownable {
     mapping(address => DeployedToken) public deployedTokensData;
     event Created(address indexed to);
 
+    constructor() {}
+
     function createToken(
         string memory name,
         string memory symbol,
