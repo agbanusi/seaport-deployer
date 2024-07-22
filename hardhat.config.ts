@@ -74,7 +74,7 @@ const config: HardhatUserConfig = {
       {
         version: "0.8.17",
         settings: {
-          viaIR: true,
+          viaIR: false,
           optimizer: {
             ...(process.env.NO_SPECIALIZER
               ? optimizerSettingsNoSpecializer
@@ -148,6 +148,13 @@ const config: HardhatUserConfig = {
       gas: 6000000,
       gasPrice: 1000000000,
       url: "https://blast-rpc.publicnode.com",
+    },
+    arthera: {
+      accounts: [process.env.PRIVATE_KEY],
+      chainId: 10242,
+      gas: 80000000,
+      gasPrice: 1000000000,
+      url: "https://rpc.arthera.net",
     },
     sepolia: {
       accounts: [process.env.PRIVATE_KEY],

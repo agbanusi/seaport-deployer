@@ -101,10 +101,10 @@ contract Seaport is Consideration {
      *                          ERC20/721/1155 tokens.
      */
     constructor(address conduitController) Consideration(conduitController) {
-        IBlastPoints(0x2536FE9ab3F511540F2f9e2eC2A805005C3Dd800)
-            .configurePointsOperator(
-                0x0F19a93bD8AF68fd8F43e55Fe837af0bAE733b64
-            );
+        // IBlastPoints(0x2536FE9ab3F511540F2f9e2eC2A805005C3Dd800)
+        //     .configurePointsOperator(
+        //         0x0F19a93bD8AF68fd8F43e55Fe837af0bAE733b64
+        //     );
     }
 
     /**
